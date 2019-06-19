@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
     nginx:
         container_name: nginx
@@ -31,5 +31,23 @@ services:
         volumes:
             - ./gcc/work:/home/work
         command: /home/start
+    mysql:
+        container_name: mysql
+        image: mysql:5.7.26
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysqldata:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=yudafu2019
+            - MYSQL_DATABASE=test
+    node:
+        container_name: node
+        image: node
+        build: ./node
+        ports:
+            - "8000:8000"
+        command: node /home/start.js
 volumes:
     mongodata:
+    mysqldata:
