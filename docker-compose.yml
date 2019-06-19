@@ -1,0 +1,35 @@
+version: '2'
+services:
+    nginx:
+        container_name: nginx
+        image: nginx
+        restart: always
+        ports:
+            - "8080:80"
+        volumes:
+            - ./nginx/web:/usr/share/nginx/html
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./nginx/log:/var/log/nginx
+    reids:
+        container_name: redis
+        image: redis
+        command: redis-server --requirepass yudafu2019
+        ports:
+            - "6379:6379"
+    mongo:
+        container_name: mongo
+        image: mongo
+        ports:
+            - "27017:27017"
+        command: mongod --auth
+        volumes:
+            - mongodata:/data/db
+    gcc:
+        container_name: gcc
+        image: gcc
+        build: ./gcc
+        volumes:
+            - ./gcc/work:/home/work
+        command: /home/start
+volumes:
+    mongodata:
