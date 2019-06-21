@@ -2,3 +2,4 @@ image
 nginx/web
 nginx/log
 .vscode
+.redisConsole.log
